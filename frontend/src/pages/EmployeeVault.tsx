@@ -15,7 +15,7 @@ export default function EmployeeVault() {
       setStatus('Prompting Wallet for Fhenix View Permit (Signed Permission)...');
       
       // Simulated Permit generation
-      const permit = await generatePermit("demo", {}, {}); 
+      await generatePermit("demo", {}, {}); 
       setStatus('Permission Granted. Fetching sealed encrypted balance from node...');
       
       const contract = getMockContract("demo");

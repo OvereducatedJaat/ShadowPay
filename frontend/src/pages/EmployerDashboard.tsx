@@ -21,10 +21,10 @@ export default function EmployerDashboard() {
       
       // Local FHE Encryption Simulation
       await new Promise(r => setTimeout(r, 800));
-      const encryptedSalary = await fhenixClient.encrypt_uint64(Number(salaryRaw));
+      await fhenixClient.encrypt_uint64(Number(salaryRaw));
       
       setStatus('Pushing encrypted salary to ShadowPay registry...');
-      const tx = await contract.setSalary();
+      const tx = await contract.setSalary() as { hash: string };
       
       setStatus(`Success! Tx Hash: ${tx.hash}`);
       setEmployeeAddress('');
@@ -40,7 +40,7 @@ export default function EmployerDashboard() {
       const contract = getMockContract("demo");
       
       await new Promise(r => setTimeout(r, 1000));
-      const tx = await contract.addTreasury();
+      const tx = await contract.addTreasury() as { hash: string };
       
       setStatus(`Treasury Funded! (Simulated Tx: ${tx.hash})`);
       setTreasuryAddRaw('');
@@ -56,7 +56,7 @@ export default function EmployerDashboard() {
       
       setStatus('Computing Net Pay and Taxes for 12 employees (Encrypted math)...');
       const contract = getMockContract("demo");
-      const tx = await contract.runPayroll();
+      const tx = await contract.runPayroll() as { hash: string };
       
       setStatus(`Payroll Complete! Net pay distributed via FHE logic. Tx: ${tx.hash}`);
     } catch(e: any) {
